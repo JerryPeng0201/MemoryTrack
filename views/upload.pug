@@ -1,0 +1,36 @@
+extends layoutBSMain
+
+block content
+  .jumbotron.jumbotron-fluid
+    .container.col
+      h1= title
+      p.lead
+        | Welcome to #{title}. A kingdom only belongs to you
+
+  form
+    .form-group
+      label(for='exampleFormControlFile1') Upload your file
+      input#exampleFormControlFile1.form-control-file(type='file')
+    .form-check.form-check-inline
+      input#inlineRadio1.form-check-input(type='radio', name='inlineRadioOptions', value='option1')
+      label.form-check-label(for='inlineRadio1') Diary
+    .form-check.form-check-inline
+      input#inlineRadio2.form-check-input(type='radio', name='inlineRadioOptions', value='option2')
+      label.form-check-label(for='inlineRadio2') Photos
+    .form-check.form-check-inline
+      input#inlineRadio3.form-check-input(type='radio', name='inlineRadioOptions', value='option3')
+      label.form-check-label(for='inlineRadio3') Videos
+    .form.group &nbsp
+    .row
+      .col-md-3
+        label(for='inputLocation') Location
+        input.form-control(type='text')
+      .col-md-3
+        label(for='inputType') File Name
+        input.form-control(type='text')
+      .col-md-3
+        label(for='inputDate') Date
+        input.form-control(type='text', placeholder='MM/DD/YYYY')
+
+    .form-group &nbsp
+    button.btn.btn-primary(type='upload') Upload

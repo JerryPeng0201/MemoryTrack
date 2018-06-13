@@ -1,0 +1,56 @@
+extends layoutBSMain
+
+block content
+  .jumbotron.jumbotron-fluid
+    .container.col
+      h1= title
+      p.lead.col
+        | Welcome to #{title}. A kingdom only belongs to you
+
+  p Here we are!
+
+  form
+    .form-row
+      .form-group.col-md-2
+        .form-group.col
+          label(for='inputKeywords') Location
+          input#inputYears.form-control(type='text')
+        .form-group.col
+          label(for='inputKeywords') Keyword
+          input#inputYears.form-control(type='text')
+        button.btn.btn-primary(type='Login') Search
+      .form-group
+        .container
+          .row
+            .col
+              img.d-block.w-100(src='./images/Film.jpeg')
+            .col
+              img.d-block.w-100(src='./images/Photo.jpeg')
+          .row &nbsp
+          .row
+            .col
+              img.d-block.w-100(src='./images/photo2.jpg')
+            .col
+              img.d-block.w-100(src='./images/photo1.jpg')
+            .col
+              img.d-block.w-100(src='./images/photo3.jpg')
+
+
+  nav.col-sm-7(aria-label='Page navigation example')
+    ul.pagination
+      li.page-item
+        a.page-link(href='#', aria-label='Previous')
+          span(aria-hidden='true') &laquo;
+          span.sr-only Previous
+      li.page-item
+        a.page-link(href='#') 1
+      li.page-item
+        a.page-link(href='#') 2
+      li.page-item
+        a.page-link(href='#') 3
+      li.page-item
+        a.page-link(href='#') ...
+      li.page-item
+        a.page-link(href='#', aria-label='Next')
+          span(aria-hidden='true') &raquo;
+          span.sr-only Next
