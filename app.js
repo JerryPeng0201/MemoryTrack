@@ -5,6 +5,13 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require("express-session");
 
+//codes for authentication
+// here we set up authentication with passport
+//const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const passport = require('passport')
+const configPassport = require('./config/passport')
+configPassport(passport)
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 //var signInRouter = require('./routes/signIn');
@@ -13,14 +20,6 @@ var diaryRouter = require('./routes/diary');
 var photoRouter = require('./routes/photo');
 var videoRouter = require('./routes/video');
 var uploadRouter = require('./routes/upload');
-
-
-//codes for authentication
-// here we set up authentication with passport
-//const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const passport = require('passport')
-const configPassport = require('./config/passport')
-configPassport(passport)
 
 var app = express();
 
@@ -45,6 +44,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//new code for authentication
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Add the authentication routes
 //visit this route to start the google authentication
@@ -115,10 +118,6 @@ app.use('/diary', diaryRouter);
 app.use('/photo', photoRouter);
 app.use('/video', videoRouter);
 app.use('/upload', uploadRouter);
-
-//new code for authentication
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 app.get('/signIn', accountInfoController.getAllAccounts);
