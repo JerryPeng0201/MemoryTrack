@@ -8,62 +8,64 @@ block content
         | Start to build your own kingdom ...
 
 
-  form
-  .form-row
-    .form-group.col-md-3
-      label(for='inputAccount') Account
-      input#inputAccount.form-control(type='email', placeholder='Email')
-    .form-group.col-md-3
-      label(for='inputPassword') Password
-      input#inputPassword.form-control(type='password', placeholder='Password')
-    .form-group.col-md-3
-      label(for='inputPassword1') Confirm Your Password
-      input#inputPassword1.form-control(type='password', placeholder='Re-type Your Password')
+  form(method="post" action="/saveSignIn")
+      .form-row
+        .form-group.col-md-3
+          label(for='inputAccount') Account
+          input#inputAccount.form-control(type='email', placeholder='Email')
+        .form-group.col-md-3
+          label(for='inputPassword') Password
+          input#inputPassword.form-control(type='password', placeholder='Password')
+        .form-group.col-md-3
+          label(for='inputPassword1') Confirm Your Password
+          input#inputPassword1.form-control(type='password', placeholder='Re-type Your Password')
 
-  .form-row
-    .form-group.col-md-2
-      label(for='inputFirstName') First Name
-      input#inputFirstName.form-control(type='text')
-    .form-group.col-md-1
-      label(for='inputMiddle') Middle
-      input#inputMiddle.form-control(type='text')
-    .form-group.col-md-2
-      label(for='inputLastName') Last Name
-      input#inputLastName.form-control(type='text')
-    .form-group.col-md-1
-      label(for='inputGender') Gender
-      select#inputGender.form-control
-        option(selected='') Choose...
-        option Male
-        option Female
-        option Others
-    .form-group.col-md-1
-      label(for='inputTitle') Title
-      select#inputTitle.form-control
-        option(selected='') Choose...
-        option Dr.
-        option Mr.
-        option Mrs.
-        option Miss.
-        option Ms.
-  .form-row
-    .form-group.col-md-1
-      label(for='inputMonth') Birthday
-      input#inputMonth.form-control(type='text', placeholder='MM')
-    .form-group.col-md-1
-      label(for='inputDate') &nbsp
-      input#inputDate.form-control(type='text', placeholder='DD')
-    .form-group.col-md-1
-      label(for='inputYears') &nbsp
-      input#inputYears.form-control(type='text', placeholder='YYYY')
-  .form-row
-    .form-group.col-md-3
-      label(for='inputEmailAddress') Email Address
-      input#inputEmailAddress.form-control(type='text', placeholder='memorytrack@gmail.com')
-      small#emailHelp.form-text.text-muted We&apos;ll never share your information with anyone else.
-    .form-group.col-md-3
-      label(for='inputPhoneNumber') Phone Number
-      input#inputPhoneNumber.form-control(type='text', placeholder='123-456-7890')
+      .form-row
+        .form-group.col-md-2
+          label(for='inputFirstName') First Name
+          input#inputFirstName.form-control(type='text' name="firstName")
+        .form-group.col-md-1
+          label(for='inputMiddle') Middle
+          input#inputMiddle.form-control(type='text', name="middleName")
+        .form-group.col-md-2
+          label(for='inputLastName') Last Name
+          input#inputLastName.form-control(type='text', name="lastName")
+        .form-group.col-md-1
+          label(for='inputGender') Gender
+          select#inputGender.form-control
+            option(selected='') Choose...
+            option Male
+            option Female
+            option Others
+        .form-group.col-md-1
+          label(for='inputTitle') Title
+          select#inputTitle.form-control
+            option(selected='') Choose...
+            option Dr.
+            option Mr.
+            option Mrs.
+            option Miss.
+            option Ms.
+      .form-row
+        .form-group.col-md-1
+          label(for='inputMonth') Birthday
+          input#inputMonth.form-control(type='text', placeholder='MM')
+        .form-group.col-md-1
+          label(for='inputDate') &nbsp
+          input#inputDate.form-control(type='text', placeholder='DD')
+        .form-group.col-md-1
+          label(for='inputYears') &nbsp
+          input#inputYears.form-control(type='text', placeholder='YYYY')
+      .form-row
+        .form-group.col-md-3
+          label(for='inputEmailAddress') Email Address
+          input#inputEmailAddress.form-control(type='text', placeholder='memorytrack@gmail.com')
+          small#emailHelp.form-text.text-muted We&apos;ll never share your information with anyone else.
+        .form-group.col-md-3
+          label(for='inputPhoneNumber') Phone Number
+          input#inputPhoneNumber.form-control(type='text', placeholder='123-456-7890')
+      button
+        |Submit
 
   // Button trigger modal
   button.btn.btn-primary(type='button', data-toggle='modal', data-target='#exampleModal')
@@ -81,3 +83,11 @@ block content
         .modal-footer
           button.btn.btn-secondary(type='button', data-dismiss='modal') Close
           button.btn.btn-primary(type='button') Join us!
+
+
+  h1 List of All signIn
+    ol
+      each e information in signIn
+        li
+           e #{e.firstName} --
+           i #{e.lastName}
