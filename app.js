@@ -4,10 +4,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require("express-session");
-
+const bodyParser = require("body-parser");
+const User = require( './models/user' );
+const flash = require('connect-flash');
 //codes for authentication
 // here we set up authentication with passport
-//const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const passport = require('passport')
 const configPassport = require('./config/passport')
 configPassport(passport)
@@ -43,11 +45,35 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({ secret: 'zzbbyanana' }));
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //new code for authentication
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// here is where we check on their logged in status
+app.use((req,res,next) => {
+  res.locals.loggedIn = false
+  if (req.isAuthenticated()){
+    console.log("user has been Authenticated")
+    res.locals.user = req.user
+    res.locals.loggedIn = true
+    if (req.user){
+      if (req.user.googleemail=='tjhickey@brandeis.edu'){
+        console.log("Owner has logged in")
+        res.locals.status = 'teacher'
+      } else {
+        console.log('student has logged in')
+        res.locals.status = 'student'
+      }
+    }
+  }
+  next()
+})
+
 
 //Add the authentication routes
 //visit this route to start the google authentication
@@ -61,6 +87,47 @@ app.get('/login', function(req,res){
   res.render('login',{})
 })
 
+// route for logging out
+app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
+
+// =====================================
+// GOOGLE ROUTES =======================
+// =====================================
+// send to google to do the authentication
+// profile gets us their basic information including their name
+// email gets their emails
+app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+
+// the callback after google has authenticated the user
+app.get('/auth/google/callback',
+        passport.authenticate('google', {
+                successRedirect : '/private',
+                failureRedirect : '/loginerror'
+        }));
+
+app.get('/private/authorized',
+        passport.authenticate('google', {
+                successRedirect : '/private',
+                failureRedirect : '/loginerror'
+        }));
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+  console.log("checking to see if they are authenticated!")
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated()){
+    console.log("user has been Authenticated")
+    return next();
+  }else{
+    console.log("user has not been authenticated...")
+    // if they aren't redirect them to the home page
+    res.redirect('/login');
+  }
+
+}
 
 // we require them to be logged in to see their profile
 app.get('/diary', isLoggedIn, function(req, res) {
@@ -93,56 +160,14 @@ app.get('/Account', isLoggedIn, function(req, res) {
         });
     });
 
-// route for logging out
-app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
-
-
-// =====================================
-// GOOGLE ROUTES =======================
-// =====================================
-// send to google to do the authentication
-// profile gets us their basic information including their name
-// email gets their emails
-app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-
-// the callback after google has authenticated the user
-app.get('/auth/google/callback',
-        passport.authenticate('google', {
-                successRedirect : '/private',
-                failureRedirect : '/loginerror'
-        }));
-
-app.get('/private/authorized',
-        passport.authenticate('google', {
-                successRedirect : '/private',
-                failureRedirect : '/loginerror'
-        }));
-
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-    console.log("checking to see if they are authenticated!")
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated()){
-      console.log("user has been Authenticated")
-      return next();
-    }
-
-    console.log("user has not been authenticated...")
-    // if they aren't redirect them to the home page
-    res.redirect('/login');
-}
-
 
 app.use('/', indexRouter);
 app.use('/users', isLoggedIn, userInfoController.getAllUsers);
-app.use('/private', privateRouter);
-app.use('/diary', diaryRouter);
-app.use('/photo', photoRouter);
-app.use('/video', videoRouter);
-app.use('/upload', uploadRouter);
+app.use('/private',isLoggedIn, privateRouter);
+app.use('/diary', isLoggedIn, diaryRouter);
+app.use('/photo', isLoggedIn, photoRouter);
+app.use('/video', isLoggedIn, videoRouter);
+app.use('/upload', isLoggedIn, uploadRouter);
 
 
 app.get('/signIn', isLoggedIn, accountInfoController.getAllAccounts);

@@ -7,11 +7,10 @@ var userSchema = mongoose.Schema( {
   googleid: String,
   googletoken: String,
   googlename:String,
-  googleemail:String,
-  description: String
+  googleemail:String
 } );
 
-module.exports = mongoose.model( 'User', userSchema );
+module.exports = mongoose.model( 'user', userSchema );
 
 /*
 newUser.google.id    = profile.id;
