@@ -8,19 +8,60 @@ html(lang="en")
     link(rel='stylesheet', href='/stylesheets/style.css')
     block head
   body
-    .nav
-        li.nav-item
-          a.nav-link.active(href="/private") Welcome
-        li.nav-item
-          a.nav-link.active(href="/users") Account
-        li.nav-item
-          a.nav-link.active(href="/upload") Upload
-        li.nav-item
-          a.nav-link.active(href="/diary") Diary
-        li.nav-item
-          a.nav-link.active(href="/photo") Photo Album
-        li.nav-item
-          a.nav-link.active(href="/video") Theater
+    header
+      nav.navbar.navbar-expand-lg.navbar-dark.fixed-top.bg-dark
+        a.navbar-brand(href='#') MemoryTrack
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+        #navbarSupportedContent.collapse.navbar-collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item.active
+              a.nav-link(href='/')
+                | Home
+                span.sr-only (current)
+            li.nav-item.active
+              a.nav-link(href='/Account') Personal-Information
+            li.nav-item.active
+              a.nav-link(href='/diary') Diary
+            li.nav-item.active
+              a.nav-link(href='/photo') Photo-Album
+            li.nav-item.active
+              a.nav-link(href='/video') Theater
+            li.nav-item.active
+              a.nav-link(href='/upload') Upload
+          form.form-inline.my-2.my-lg-0
+            input.form-control.mr-sm-2(type='search', placeholder='Search', aria-label='Search')
+            button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+            |&nbsp
+            a.btn.btn-danger(href="/auth/google")
+              span.fa.fa-google-plus  Log out
+      #carouselExampleIndicators.carousel.slide(data-ride='carousel')
+        ol.carousel-indicators
+          li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
+          li(data-target='#carouselExampleIndicators', data-slide-to='1')
+          li(data-target='#carouselExampleIndicators', data-slide-to='2')
+        .carousel-inner
+          .carousel-item.active
+            img.d-block.w-100(src='./images/photo1.jpg', alt='First slide', width=100 height=600)
+            .carousel-caption.d-none.d-md-block.text-left
+              h1 Write something ...
+              p In this section, you can write your own diary or other article. Use your laptop to record your beautiful life!
+          .carousel-item
+            img.d-block.w-100(src='./images/photo2.jpg', alt='Second slide', width=100 height=600)
+            .carousel-caption.d-none.d-md-block.text-left
+              h2 Catch the moment ...
+              p Everybody has his or her beautiful or excited moment. Those photos can be your valuable memory!
+          .carousel-item
+            img.d-block.w-100(src='./images/photo3.jpg', alt='Third slide', width=100 height=600)
+            .carousel-caption.d-none.d-md-block.text-left
+              h3 You're the star!
+              p You are the super star of your life!
+        a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
+          span.carousel-control-prev-icon(aria-hidden='true')
+          span.sr-only Previous
+        a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
+          span.carousel-control-next-icon(aria-hidden='true')
+          span.sr-only Next
     block content
     script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous")

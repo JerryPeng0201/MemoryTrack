@@ -1,55 +1,32 @@
 extends layoutBS
 
 block content
-  .jumbotron.jumbotron-fluid
-    .container.col
-      h1.display-4= title
-      p.lead
-        | Welcome to #{title}. A kingdom only belongs to you
-
   p &nbsp
 
-  form(method='post')
+  .container
     .form-row
-      .form-group.col
-        .form-group.col-md-6
-          label(for='exampleInputAccount1') Account
-          input(type='email', name='account' aria-describedby='emailHelp', placeholder='Enter your account')#exampleInputAccount1.form-control
-          small#emailHelp.form-text.text-muted No account? Come to join us today!
-        .form-group.col-md-6
-          label(for='exampleInputPassword1') Password
-          input(type='password', name='Passcode' placeholder='Password')#exampleInputPassword1.form-control
-        .form-group.form-check
-          input#exampleCheck1.form-check-input(type='checkbox')
-          label.form-check-label(for='exampleCheck1') Remember me
-        button.btn.btn-primary(type='submit') Log in
-        |&nbsp&nbsp&nbsp
-        button.btn.btn-primary(type='submit') Sign in
-        |&nbsp&nbsp&nbsp
-        button
-          |Submit
-        hr
-        p
-          | The account of #{account} just joined us
-        ol
-          li The square of #{account} just joined us
+      .col-lg-4
+        .card(style='width: 18rem;')
+          img.rounded-circle(src='./images/photo1.jpg', alt='Card image cap', width='140', height='140')
+          .card-body
+            h5.card-title Diary
+            p.card-text
+              | Your life is beautiful. Your emotion is variable. Use your pen to record your everyday!
 
-      .form-group.col
-        #carouselExampleIndicators.carousel.slide(data-ride='carousel', style='width: 500px; margin: 1 auto')
-          ol.carousel-indicators
-            li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
-            li(data-target='#carouselExampleIndicators', data-slide-to='1')
-            li(data-target='#carouselExampleIndicators', data-slide-to='2')
-          .carousel-inner
-            .carousel-item.active
-              img.d-block.w-100(src='./images/photo1.jpg', alt='First slide')
-            .carousel-item
-              img.d-block.w-100(src='./images/photo2.jpg', alt='Second slide')
-            .carousel-item
-              img.d-block.w-100(src='./images/photo3.jpg', alt='Third slide')
-          a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
-            span.carousel-control-prev-icon(aria-hidden='true')
-            span.sr-only Previous
-          a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
-            span.carousel-control-next-icon(aria-hidden='true')
-            span.sr-only Next
+      .col-lg-4
+        .card(style='width: 18rem;')
+          img.rounded-circle(src='./images/photo2.jpg', alt='Card image cap',, width='140', height='140')
+          .card-body
+            h5.card-title Photo-Album
+            p.card-text
+              | Your life is beautiful. Your emotion is variable. Use your pen to record your everyday!
+
+      .col-lg-4
+        .card(style='width: 18rem;')
+          img.rounded-circle(src='./images/photo3.jpg', alt='Card image cap',, width='140', height='140')
+          .card-body
+            h5.card-title Theater
+            p.card-text
+              | Your life is beautiful. Your emotion is variable. Use your pen to record your everyday!
+
+  hr.featurette-divider

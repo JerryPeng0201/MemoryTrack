@@ -62,7 +62,37 @@ app.get('/login', function(req,res){
 })
 
 // we require them to be logged in to see their profile
-app.get('/profile', isLoggedIn, function(req, res) {
+app.get('/private', isLoggedIn, function(req, res) {
+        res.render('profile', {
+            user : req.user // get the user out of session and pass to template
+        });
+    });
+// we require them to be logged in to see their profile
+app.get('/diary', isLoggedIn, function(req, res) {
+        res.render('profile', {
+            user : req.user // get the user out of session and pass to template
+        });
+    });
+// we require them to be logged in to see their profile
+app.get('/photo', isLoggedIn, function(req, res) {
+        res.render('profile', {
+            user : req.user // get the user out of session and pass to template
+        });
+    });
+// we require them to be logged in to see their profile
+app.get('/video', isLoggedIn, function(req, res) {
+        res.render('profile', {
+            user : req.user // get the user out of session and pass to template
+        });
+    });
+// we require them to be logged in to see their profile
+app.get('/upload', isLoggedIn, function(req, res) {
+        res.render('profile', {
+            user : req.user // get the user out of session and pass to template
+        });
+    });
+// we require them to be logged in to see their profile
+app.get('/Account', isLoggedIn, function(req, res) {
         res.render('profile', {
             user : req.user // get the user out of session and pass to template
         });
@@ -112,7 +142,7 @@ function isLoggedIn(req, res, next) {
 
 
 app.use('/', indexRouter);
-app.use('/users', userInfoController.getAllUsers);
+app.use('/users', isLoggedIn, userInfoController.getAllUsers);
 app.use('/private', privateRouter);
 app.use('/diary', diaryRouter);
 app.use('/photo', photoRouter);
@@ -120,8 +150,8 @@ app.use('/video', videoRouter);
 app.use('/upload', uploadRouter);
 
 
-app.get('/signIn', accountInfoController.getAllAccounts);
-app.post('/saveSignIn', accountInfoController.saveAccount );
+app.get('/signIn', isLoggedIn, accountInfoController.getAllAccounts);
+app.post('/saveSignIn', isLoggedIn, accountInfoController.saveAccount );
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
