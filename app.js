@@ -61,39 +61,34 @@ app.get('/login', function(req,res){
   res.render('login',{})
 })
 
-// we require them to be logged in to see their profile
-app.get('/private', isLoggedIn, function(req, res) {
-        res.render('profile', {
-            user : req.user // get the user out of session and pass to template
-        });
-    });
+
 // we require them to be logged in to see their profile
 app.get('/diary', isLoggedIn, function(req, res) {
-        res.render('profile', {
+        res.render('diary', {
             user : req.user // get the user out of session and pass to template
         });
     });
 // we require them to be logged in to see their profile
 app.get('/photo', isLoggedIn, function(req, res) {
-        res.render('profile', {
+        res.render('photo', {
             user : req.user // get the user out of session and pass to template
         });
     });
 // we require them to be logged in to see their profile
 app.get('/video', isLoggedIn, function(req, res) {
-        res.render('profile', {
+        res.render('video', {
             user : req.user // get the user out of session and pass to template
         });
     });
 // we require them to be logged in to see their profile
 app.get('/upload', isLoggedIn, function(req, res) {
-        res.render('profile', {
+        res.render('upload', {
             user : req.user // get the user out of session and pass to template
         });
     });
 // we require them to be logged in to see their profile
 app.get('/Account', isLoggedIn, function(req, res) {
-        res.render('profile', {
+        res.render('Account', {
             user : req.user // get the user out of session and pass to template
         });
     });
@@ -116,7 +111,7 @@ app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'e
 // the callback after google has authenticated the user
 app.get('/auth/google/callback',
         passport.authenticate('google', {
-                successRedirect : '/profile',
+                successRedirect : '/private',
                 failureRedirect : '/loginerror'
         }));
 
