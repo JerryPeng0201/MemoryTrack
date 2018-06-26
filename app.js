@@ -87,12 +87,6 @@ app.get('/login', function(req,res){
   res.render('login',{})
 })
 
-// route for logging out
-app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
-
 // =====================================
 // GOOGLE ROUTES =======================
 // =====================================
@@ -158,6 +152,12 @@ app.get('/Account', isLoggedIn, function(req, res) {
         res.render('Account', {
             user : req.user // get the user out of session and pass to template
         });
+    });
+
+// route for logging out
+app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
     });
 
 
