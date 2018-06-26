@@ -120,9 +120,9 @@ app.get('/auth/google/callback',
                 failureRedirect : '/loginerror'
         }));
 
-app.get('/login/authorized',
+app.get('/private/authorized',
         passport.authenticate('google', {
-                successRedirect : '/profile',
+                successRedirect : '/private',
                 failureRedirect : '/loginerror'
         }));
 
