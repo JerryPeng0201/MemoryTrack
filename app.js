@@ -7,6 +7,7 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const User = require( './models/user' );
 const flash = require('connect-flash');
+
 //codes for authentication
 // here we set up authentication with passport
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -18,7 +19,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 //var signInRouter = require('./routes/signIn');
 var privateRouter = require('./routes/private');
-var diaryRouter = require('./routes/diary');
+//var diaryRouter = require('./routes/diary');
 var photoRouter = require('./routes/photo');
 var videoRouter = require('./routes/video');
 var uploadRouter = require('./routes/upload');
@@ -27,6 +28,7 @@ var app = express();
 
 const userInfoController = require('./controllers/userInfoController')
 const accountInfoController = require('./controllers/accountInfoController')
+const diaryInfoController = require('./controllers/diaryInfoController')
 
 //Test whether the mongoose database can work
 const mongoose = require( 'mongoose');
@@ -124,11 +126,13 @@ function isLoggedIn(req, res, next) {
 }
 
 // we require them to be logged in to see their profile
+/*
 app.get('/diary', isLoggedIn, function(req, res) {
         res.render('diary', {
             user : req.user // get the user out of session and pass to template
         });
     });
+    */
 // we require them to be logged in to see their profile
 app.get('/photo', isLoggedIn, function(req, res) {
         res.render('photo', {
@@ -164,7 +168,7 @@ app.get('/logout', function(req, res) {
 app.use('/', indexRouter);
 app.use('/users', isLoggedIn, userInfoController.getAllUsers);
 app.use('/private',isLoggedIn, privateRouter);
-app.use('/diary', isLoggedIn, diaryRouter);
+//app.use('/diary', isLoggedIn, diaryInfoController.getAllDiarys);
 app.use('/photo', isLoggedIn, photoRouter);
 app.use('/video', isLoggedIn, videoRouter);
 app.use('/upload', isLoggedIn, uploadRouter);
@@ -172,6 +176,10 @@ app.use('/upload', isLoggedIn, uploadRouter);
 
 app.get('/signIn', isLoggedIn, accountInfoController.getAllAccounts);
 app.post('/saveSignIn', isLoggedIn, accountInfoController.saveAccount );
+
+app.get('/diary', isLoggedIn, diaryInfoController.getAllDiarys);
+app.post('/saveDiary', isLoggedIn, diaryInfoController.saveDiary );
+app.post('/deleteDiary', isLoggedIn, diaryInfoController.deleteDiary );
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

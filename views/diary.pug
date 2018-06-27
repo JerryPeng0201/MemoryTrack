@@ -2,119 +2,28 @@ extends layoutBSMain
 
 block content
 
-  
+
 
 
   p Find your article!
-
-  form
-    .form-row
-      .form-group.col-md-2
-        .form-group.col
-          label(for='inputType') Type
-          select#inputType.form-control
-            option(selected='') Choose...
-            option Diary
-            option Academy
-            option Review
-            option Reprint
-        .form-group.col
-          label(for='inputKeywords') Keyword
-          input#inputYears.form-control(type='text')
-        button.btn.btn-primary(type='Login') Search
-        |&nbsp&nbsp&nbsp&nbsp
-
-
-      .form-group &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-
-      .form-group
-        .container
-          .row
-            .col
-              .card(style='width: 15rem;')
-                .card-body
-                  h5.card-title Card title
-                  h6.card-subtitle.mb-2.text-muted Card subtitle
-                  p.card-text
-                    | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
-                  a.card-link(href='#') Read
-            .col
-              .card(style='width: 15rem;')
-                .card-body
-                  h5.card-title Card title
-                  h6.card-subtitle.mb-2.text-muted Card subtitle
-                  p.card-text
-                    | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
-                  a.card-link(href='#') Read
-            .col
-              .card(style='width: 15rem;')
-                .card-body
-                  h5.card-title Card title
-                  h6.card-subtitle.mb-2.text-muted Card subtitle
-                  p.card-text
-                    | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
-                  a.card-link(href='#') Read
-            .col
-              .card(style='width: 15rem;')
-                .card-body
-                  h5.card-title Card title
-                  h6.card-subtitle.mb-2.text-muted Card subtitle
-                  p.card-text
-                    | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
-                  a.card-link(href='#') Read
-          .row &nbsp
-          .row
-            .col
-              .card(style='width: 15rem;')
-                .card-body
-                  h5.card-title Card title
-                  h6.card-subtitle.mb-2.text-muted Card subtitle
-                  p.card-text
-                    | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
-                  a.card-link(href='#') Read
-            .col
-              .card(style='width: 15rem;')
-                .card-body
-                  h5.card-title Card title
-                  h6.card-subtitle.mb-2.text-muted Card subtitle
-                  p.card-text
-                    | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
-                  a.card-link(href='#') Read
-            .col
-              .card(style='width: 15rem;')
-                .card-body
-                  h5.card-title Card title
-                  h6.card-subtitle.mb-2.text-muted Card subtitle
-                  p.card-text
-                    | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
-                  a.card-link(href='#') Read
-            .col
-              .card(style='width: 15rem;')
-                .card-body
-                  h5.card-title Card title
-                  h6.card-subtitle.mb-2.text-muted Card subtitle
-                  p.card-text
-                    | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
-                  a.card-link(href='#') Read
-
-    .p &nbsp
-    .p &nbsp
-
-    nav.col-sm-7(aria-label='Page navigation example')
-      ul.pagination
-        li.page-item
-          a.page-link(href='#', aria-label='Previous')
-            span(aria-hidden='true') &laquo;
-            span.sr-only Previous
-        li.page-item
-          a.page-link(href='#') 1
-        li.page-item
-          a.page-link(href='#') 2
-        li.page-item
-          a.page-link(href='#') 3
-        li.page-item
-          a.page-link(href='#') ...
-        li.page-item
-          a.page-link(href='#', aria-label='Next')
-            span(aria-hidden='true') &raquo;
-            span.sr-only Next
+  p &nbsp
+  h1 Add a diary
+  form(method="post" action="saveDiary")
+      .formGroup
+        label diary name
+        input(type='text', name='diaryName')
+      .formGroup
+        label description
+        textarea(rows='10', cols='80', name='description')
+      input(type="submit")
+  hr
+  h3 List of All diary
+  form(method="post" action="deleteDiary")
+   ol
+     each e in diaryInfo
+       li
+         input(name="deleteDiary", value=e.name, type="checkbox")
+         e #{e.diaryName} --
+         i #{e.description}
+   input(type="submit" value="Delete checked items")
+   hr

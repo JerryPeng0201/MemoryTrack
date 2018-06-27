@@ -33,8 +33,12 @@ html(lang="en")
             input.form-control.mr-sm-2(type='search', placeholder='Search', aria-label='Search')
             button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
             |&nbsp
+          if loggedIn
+            a.btn.btn-danger(href="/logout")
+              span.fa.fa-google-plus  Logout
+          else
             a.btn.btn-danger(href="/auth/google")
-              span.fa.fa-google-plus  Log out
+              span.fa.fa-google-plus  Login
       #carouselExampleIndicators.carousel.slide(data-ride='carousel')
         ol.carousel-indicators
           li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
